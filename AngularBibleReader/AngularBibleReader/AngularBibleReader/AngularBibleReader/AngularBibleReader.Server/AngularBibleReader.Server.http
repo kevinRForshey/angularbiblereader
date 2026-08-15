@@ -1,0 +1,6 @@
+@AngularBibleReader.Server_HostAddress = http://localhost:5084
+
+GET {{AngularBibleReader.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

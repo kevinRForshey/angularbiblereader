@@ -1,0 +1,29 @@
+<Solution>
+  <Folder Name="/packages/">
+    <File Path="packages/BiblePlatform.API.0.1.2-alpha.0.16.nupkg" />
+    <File Path="packages/BiblePlatform.API.0.1.2-alpha.0.16.snupkg" />
+    <File Path="packages/BiblePlatform.API.Models.0.1.2-alpha.0.16.nupkg" />
+    <File Path="packages/BiblePlatform.API.Models.0.1.2-alpha.0.16.snupkg" />
+    <File Path="packages/BiblePlatform.SDK.Services.0.1.2-alpha.0.16.nupkg" />
+    <File Path="packages/BiblePlatform.SDK.Services.0.1.2-alpha.0.16.snupkg" />
+    <File Path="packages/BiblePlatform.UsfmReferences.3.1.1.nupkg" />
+    <File Path="packages/BiblePlatform.UsfmReferences.3.1.1.snupkg" />
+    <File Path="packages/YouVersion.Platform.API.Models.Unofficial.0.1.2-alpha.0.11.nupkg" />
+    <File Path="packages/YouVersion.Platform.API.Models.Unofficial.0.1.2-alpha.0.11.snupkg" />
+    <File Path="packages/YouVersion.Platform.API.Unofficial.0.1.2-alpha.0.11.nupkg" />
+    <File Path="packages/YouVersion.Platform.API.Unofficial.0.1.2-alpha.0.11.snupkg" />
+    <File Path="packages/YouVersion.Platform.SDK.Components.Unofficial.0.1.2-alpha.0.11.nupkg" />
+    <File Path="packages/YouVersion.Platform.SDK.Components.Unofficial.0.1.2-alpha.0.11.snupkg" />
+    <File Path="packages/YouVersion.Platform.SDK.Services.Unofficial.0.1.2-alpha.0.11.nupkg" />
+    <File Path="packages/YouVersion.Platform.SDK.Services.Unofficial.0.1.2-alpha.0.11.snupkg" />
+    <File Path="packages/YouVersion.UsfmReferences.Unofficial.3.1.1.nupkg" />
+    <File Path="packages/YouVersion.UsfmReferences.Unofficial.3.1.1.snupkg" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="AngularBibleReader/angularbiblereader.client/angularbiblereader.client.esproj">
+      <Build />
+      <Deploy />
+    </Project>
+    <Project Path="AngularBibleReader/AngularBibleReader.Server/AngularBibleReader.Server.csproj" Id="5ce474ed-c1c6-4b2f-aa3b-cf57d1ec0a90" />
+  </Folder>
+</Solution>

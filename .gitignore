@@ -35,6 +35,8 @@ ScaffoldingReadMe.txt
 *.nupkg
 # NuGet Symbol Packages
 *.snupkg
+# ...except the checked-in local Bible SDK feed referenced by nuget.config
+!/AngularBibleReader/AngularBibleReader/AngularBibleReader/packages/**
 
 # dotenv environment variables file
 .env
@@ -55,3 +57,53 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+## Visual Studio / IDE
+.vs/
+*.user
+*.userosscache
+*.suo
+*.userprefs
+*.pdb
+
+# ASP.NET Core secrets — never commit real keys/tokens
+appsettings.*.local.json
+secrets.json
+
+## Node / Angular (client also has its own .gitignore; this covers the repo root)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+dist/
+out-tsc/
+.angular/cache/
+.sass-cache/
+connect.lock
+coverage/
+libpeerconnection.log
+testem.log
+typings/
+__screenshots__/
+
+## Editors / tooling
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.history/*
+.serena/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/mcp.json
+
+## OS
+.DS_Store
+Thumbs.db
