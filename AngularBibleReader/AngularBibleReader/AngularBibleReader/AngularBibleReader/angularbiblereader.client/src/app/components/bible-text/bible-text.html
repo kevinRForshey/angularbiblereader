@@ -1,9 +1,12 @@
 <div class="passage">
-  <p class="hint" *ngIf="!usfm()">Choose a version, book and chapter to start reading.</p>
-  <p class="loading" *ngIf="loading()">Loading…</p>
-  <p class="error" *ngIf="error()">{{error()}}</p>
+  <p class="passage__hint" *ngIf="!usfm()">Choose a version, book and chapter to start reading.</p>
+  <div class="passage__loading" *ngIf="loading()" aria-live="polite">
+    <span class="spinner" aria-hidden="true"></span>
+    <span>Loading…</span>
+  </div>
+  <p class="passage__error" *ngIf="error()" role="alert">{{error()}}</p>
   <ng-container *ngIf="passage() as p">
-    <h3>{{p.reference}}</h3>
-    <p class="content">{{p.content }}</p>
+    <h2 class="passage__reference">{{p.reference}}</h2>
+    <p class="passage__content">{{p.content }}</p>
   </ng-container>
 </div>

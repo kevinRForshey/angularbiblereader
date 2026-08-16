@@ -1,9 +1,11 @@
-<div class="selector">
-  <label for="version-select">Select Bible Version:</label>
-  <select id="version-select" [disabled]="loading()" (change)="OnChange($any($event.target).value)">
-    <option value="">Choose a version</option>
-    <option *ngFor="let version of versions()" [value]="version.id">
-      {{ version.localized_title }}
-    </option>
-  </select>
+<div class="field">
+  <label class="field__label" for="version-select">Version</label>
+  <div class="field__control">
+    <select id="version-select" class="field__select" [disabled]="loading()" (change)="OnChange($any($event.target).value)">
+      <option value="">{{ loading()?'Loading…':'Choose a version' }}</option>
+      <option *ngFor="let version of versions()" [value]="version.id">
+        {{ version.localized_title }}
+      </option>
+    </select>
+  </div>
 </div>

@@ -1,1 +1,123 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global design tokens: Fluent 2-derived system.
+   Control radius 4px, dual-layer elevation shadows, Communication Blue brand ramp (OKLCH hue ~253),
+   Segoe UI Variable type. Dark theme follows prefers-color-scheme with stepped surface lightness. */
+
+:root {
+  color-scheme: light dark;
+
+  --color-canvas: oklch(97% 0.004 253);
+  --color-surface: oklch(100% 0 0);
+  --color-surface-secondary: oklch(94.5% 0.006 253);
+  --color-border: oklch(87% 0.006 253);
+  --color-border-strong: oklch(78% 0.008 253);
+  --color-text-primary: oklch(21% 0.01 253);
+  --color-text-secondary: oklch(46% 0.012 253);
+  --color-text-tertiary: oklch(60% 0.01 253);
+  --color-text-disabled: oklch(72% 0.008 253);
+  --color-brand-rest: oklch(49% 0.145 253);
+  --color-brand-hover: oklch(44% 0.155 253);
+  --color-brand-pressed: oklch(38% 0.15 253);
+  --color-brand-subtle: oklch(95% 0.025 253);
+  --color-brand-subtle-border: oklch(85% 0.05 253);
+  --color-on-brand: oklch(99% 0.003 253);
+  --color-danger: oklch(53% 0.19 25);
+  --color-danger-subtle: oklch(95% 0.03 25);
+
+  --radius-control: 4px;
+  --radius-panel: 8px;
+  --radius-shell: 12px;
+
+  --shadow-2: 0 0 2px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.14);
+  --shadow-4: 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.14);
+  --shadow-8: 0 0 2px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.14);
+
+  --ease-decel: cubic-bezier(0.1, 0.9, 0.2, 1);
+  --ease-accel: cubic-bezier(0.7, 0, 0.84, 0);
+  --dur-fast: 150ms;
+  --dur-normal: 200ms;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+
+  --font-base: "Segoe UI Variable Text", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+  --font-display: "Segoe UI Variable Display", "Segoe UI Variable Text", "Segoe UI", sans-serif;
+
+  --icon-chevron-down: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4' stroke='%23000' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-canvas: oklch(16% 0.006 253);
+    --color-surface: oklch(20% 0.007 253);
+    --color-surface-secondary: oklch(23% 0.008 253);
+    --color-border: rgba(255, 255, 255, 0.08);
+    --color-border-strong: rgba(255, 255, 255, 0.14);
+    --color-text-primary: oklch(96% 0.003 253);
+    --color-text-secondary: oklch(78% 0.01 253);
+    --color-text-tertiary: oklch(65% 0.01 253);
+    --color-text-disabled: oklch(48% 0.01 253);
+    --color-brand-rest: oklch(74% 0.13 253);
+    --color-brand-hover: oklch(80% 0.11 253);
+    --color-brand-pressed: oklch(68% 0.14 253);
+    --color-brand-subtle: oklch(28% 0.06 253);
+    --color-brand-subtle-border: oklch(40% 0.08 253);
+    --color-on-brand: oklch(14% 0.01 253);
+    --color-danger: oklch(72% 0.17 25);
+    --color-danger-subtle: oklch(30% 0.07 25);
+
+    --shadow-2: 0 0 2px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.5);
+    --shadow-4: 0 0 2px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.5);
+    --shadow-8: 0 0 2px rgba(0, 0, 0, 0.4), 0 4px 8px rgba(0, 0, 0, 0.5);
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-canvas);
+  color: var(--color-text-primary);
+  font-family: var(--font-base);
+  font-size: 14px;
+  line-height: 20px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand-rest);
+  outline-offset: 2px;
+  border-radius: var(--radius-control);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

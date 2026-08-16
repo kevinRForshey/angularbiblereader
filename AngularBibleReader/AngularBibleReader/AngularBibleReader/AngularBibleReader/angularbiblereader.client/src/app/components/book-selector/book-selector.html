@@ -1,10 +1,12 @@
-<div class="selector">
-  <label for="book-select">Book</label>
-  <select id="book-select" [disabled]="!version()||loading()" (change)="onChange($any($event.target).value)">
-<option value="" selected disabled>
-{{ !version()?'Choose a version first':loading()?'Loading…':'Choose a book'}}
-</option>
-<option *ngFor="let book of books()" [value]="book.usfm">{{book.human}}</option>
-</select>
-  <p class="error" *ngIf="error()">{{error()}}</p>
+<div class="field">
+  <label class="field__label" for="book-select">Book</label>
+  <div class="field__control">
+    <select id="book-select" class="field__select" [disabled]="!version()||loading()" (change)="onChange($any($event.target).value)">
+      <option value="" selected disabled>
+        {{ !version()?'Choose a version first':loading()?'Loading…':'Choose a book'}}
+      </option>
+      <option *ngFor="let book of books()" [value]="book.usfm">{{book.human}}</option>
+    </select>
+  </div>
+  <p class="field__error" *ngIf="error()" role="alert">{{error()}}</p>
 </div>

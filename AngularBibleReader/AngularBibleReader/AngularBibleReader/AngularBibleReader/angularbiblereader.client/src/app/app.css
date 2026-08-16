@@ -1,14 +1,50 @@
-﻿:host {
-    max-width: 1280px;
-    padding: 2rem;
-    text-align: center;
+:host {
+  display: block;
+  min-height: 100%;
 }
 
-th, td {
-    padding-left: 1rem;
-    padding-right: 1rem;
+.app-bar {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 var(--space-6);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
 }
 
-table {
-    margin: 0 auto;
+.app-bar__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-primary);
+}
+
+.app-bar__mark {
+  width: 20px;
+  height: 20px;
+  color: var(--color-brand-rest);
+  flex-shrink: 0;
+}
+
+.app-bar__title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 600;
+}
+
+.app-shell {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--space-6);
+}
+
+@media (max-width: 640px) {
+  .app-bar {
+    padding: 0 var(--space-4);
+  }
+
+  .app-shell {
+    padding: var(--space-4);
+  }
 }
