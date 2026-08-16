@@ -36,7 +36,7 @@ ScaffoldingReadMe.txt
 # NuGet Symbol Packages
 *.snupkg
 # ...except the checked-in local Bible SDK feed referenced by nuget.config
-!/AngularBibleReader/AngularBibleReader/AngularBibleReader/packages/**
+!/packages/**
 
 # dotenv environment variables file
 .env

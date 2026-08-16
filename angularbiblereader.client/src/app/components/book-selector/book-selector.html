@@ -1,0 +1,16 @@
+<div class="field">
+  <label class="field__label" for="book-select">Book</label>
+  <div class="field__control">
+    <select id="book-select" class="field__select" [disabled]="!version()||loading()" (change)="onChange($any($event.target).value)">
+      <option value="" selected disabled>
+        {{ !version()?'Choose a version first':loading()?'Loading…':'Choose a book'}}
+      </option>
+      @for (book of books(); track book.usfm) {
+        <option [value]="book.usfm">{{book.human}}</option>
+      }
+    </select>
+  </div>
+  @if (error()) {
+    <p class="field__error" role="alert">{{error()}}</p>
+  }
+</div>

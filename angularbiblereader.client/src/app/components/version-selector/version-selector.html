@@ -1,0 +1,13 @@
+<div class="field">
+  <label class="field__label" for="version-select">Version</label>
+  <div class="field__control">
+    <select id="version-select" class="field__select" [disabled]="loading()" (change)="onChange($any($event.target).value)">
+      <option value="">{{ loading()?'Loading…':'Choose a version' }}</option>
+      @for (version of versions(); track version.id) {
+        <option [value]="version.id">
+          {{ version.localized_title }}
+        </option>
+      }
+    </select>
+  </div>
+</div>
