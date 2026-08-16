@@ -1,0 +1,9 @@
+<div class="passage">
+  <p class="hint" *ngIf="!usfm()">Chooseaversion,bookandchaptertostart reading.</p>
+  <p class="loading" *ngIf="loading()">Loading…</p>
+  <p class="error" *ngIf="error()">{{error()}}</p>
+  <ng-container *ngIf="passage()asp">
+    <h3>{{p.reference}}</h3>
+    <p class="content">{{p.content }}</p>
+  </ng-container>
+</div>
