@@ -8,7 +8,7 @@ import { BibleVersionSummary } from '../../core/models/bible.models';
   templateUrl: './version-selector.html',
   standalone: false,
   styleUrl: './version-selector.css',
-) }
+})
 
 
 export class VersionSelector implements OnInit {
@@ -27,12 +27,9 @@ export class VersionSelector implements OnInit {
         this.loading.set(false);
       },
       error: (err) => {
-        this.error.set(err.message);
+        this.error.set('Could not load Bible Versions.');
         this.loading.set(false);
       },
-      error: (err) => {
-        this.error.set('Could not load Bible Cersions.');
-        this.loading.set(false);
     });
   }
 

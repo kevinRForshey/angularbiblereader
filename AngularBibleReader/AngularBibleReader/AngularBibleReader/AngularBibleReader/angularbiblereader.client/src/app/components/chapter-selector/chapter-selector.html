@@ -1,0 +1,10 @@
+<div class="selector">
+  <label for="chapter-select">Chapter</label>
+  <select id="chapter-select" [disabled]="!book()||loading()" (change)="onChange($any($event.target).value)"
+<option value="" selecteddisabled>
+{{ !book()?'Chooseabookfirst':loading()?'Loading…':'Chooseachapter' }}
+</option>
+<option *ngFor="let chapterof chapters()" [value]="chapter.usfm">{{chapter.human}}</option>
+</select>
+  <p class="error" *ngIf="error()">{{error()}}</p>
+</div>

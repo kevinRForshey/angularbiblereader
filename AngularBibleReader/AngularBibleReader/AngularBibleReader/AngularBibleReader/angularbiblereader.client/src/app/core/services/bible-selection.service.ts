@@ -8,10 +8,10 @@ export class BibleSelectionService {
   private readonly _selectedChapter = signal<Chapter | null>(null);
   private readonly _selectedVerse = signal<Verse | null>(null);
 
-  readonly selectedVersion = this._selectedVersion();
-  readonly selectedBook = this._selectedBook();
-  readonly selectedChapter = this._selectedChapter();
-  readonly selectedVerse = this._selectedVerse();
+  readonly selectedVersion = this._selectedVersion.asReadonly();
+  readonly selectedBook = this._selectedBook.asReadonly();
+  readonly selectedChapter = this._selectedChapter.asReadonly();
+  readonly selectedVerse = this._selectedVerse.asReadonly();
 
 
   readonly displayUsfm = computed<string | null>(
