@@ -1,0 +1,16 @@
+﻿<div class="selector">
+  <label for="book-select">Book</label>
+
+  <select
+    id="book-select"
+    [disabled]="!version() || loading()"
+    (change)="onChange($any($event.target).value)"
+  >
+    <option value="" selected disabled>
+      {{ !version() ? 'Choose a version first' : loading() ? 'Loading…' : 'Choose a book' }}
+    </option>
+    <option *ngFor="let book of books()" [value]="book.usfm">{{ book.human }}</option>
+  </select>
+
+  <p class="error" *ngIf="error()">{{ error() }}</p>
+</div>

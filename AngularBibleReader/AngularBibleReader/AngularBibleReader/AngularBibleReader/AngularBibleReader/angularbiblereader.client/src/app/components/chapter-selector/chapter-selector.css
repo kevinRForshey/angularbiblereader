@@ -1,0 +1,22 @@
+.selector {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 8rem;
+}
+
+label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #444;
+}
+
+select {
+  padding: 0.4rem;
+}
+
+.error {
+  color: #b00020;
+  font-size: 0.8rem;
+  margin: 0;
+}
