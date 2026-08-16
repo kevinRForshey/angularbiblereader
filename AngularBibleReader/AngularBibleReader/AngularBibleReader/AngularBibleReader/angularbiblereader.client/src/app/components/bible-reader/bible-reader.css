@@ -23,6 +23,11 @@
   min-width: 140px;
 }
 
+.bible-reader__toolbar app-verse-selector {
+  flex: 1 1 260px;
+  min-width: 220px;
+}
+
 @media (max-width: 640px) {
   .bible-reader__toolbar {
     flex-direction: column;

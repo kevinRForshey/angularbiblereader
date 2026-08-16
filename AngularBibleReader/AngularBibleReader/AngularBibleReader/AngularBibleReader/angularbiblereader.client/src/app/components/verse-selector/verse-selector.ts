@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { BibleApiService } from '../../core/services/bible-api.service';
 import { BibleSelectionService } from '../../core/services/bible-selection.service';
 import { Verse } from '../../core/models/bible.models';
@@ -17,8 +17,18 @@ export class VerseSelector {
   readonly loading = signal(false);
   readonly error = signal<string | null>(null);
   readonly chapter = this.selection.selectedChapter;
-  readonly selected = this.selection.selectedVerse;
+  readonly selectedStart = this.selection.selectedVerse;
+  readonly selectedEnd = this.selection.selectedEndVerse;
 
+  /** End-verse options are restricted to verses at or after the chosen start verse. */
+  readonly endVerseOptions = computed(() => {
+    const start = this.selectedStart();
+    if (!start) {
+      return [];
+    }
+    const startNumber = Number(start.usfm.split('.').pop());
+    return this.verses().filter(v => Number(v.usfm.split('.').pop()) >= startNumber);
+  });
 
   constructor() {
     effect(() => {
@@ -42,10 +52,13 @@ export class VerseSelector {
     });
   }
 
-  onChange(verseUsfm: string): void {
-    const verse = this.verses().find(v => v.usfm === verseUsfm);
-    if (verse) {
-      this.selection.selectVerse(verse);
-    }
+  onStartChange(verseUsfm: string): void {
+    const verse = this.verses().find(v => v.usfm === verseUsfm) ?? null;
+    this.selection.selectVerse(verse);
+  }
+
+  onEndChange(verseUsfm: string): void {
+    const verse = this.endVerseOptions().find(v => v.usfm === verseUsfm) ?? null;
+    this.selection.selectEndVerse(verse);
   }
 }
