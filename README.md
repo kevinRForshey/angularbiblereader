@@ -1,0 +1,125 @@
+# Bible Reader
+
+A full-stack Bible reading application: an Angular client for browsing Bible versions, books,
+chapters, and verses, backed by an ASP.NET Core API that wraps the
+[YouVersion Bible Platform](https://developers.youversion.com/) API.
+
+The backend is built around **[BiblePlatformDotNetSDK](https://github.com/kevinRForshey/BiblePlatformDotNetSDK)**,
+a .NET SDK for the YouVersion Bible Platform API. This project consumes a version of that SDK
+compiled into NuGet packages (`BiblePlatform.API`, `BiblePlatform.API.Models`,
+`BiblePlatform.SDK.Services`, `BiblePlatform.UsfmReferences`) rather than a project reference, and
+the ASP.NET Core endpoints in `AngularBibleReader.Server` are built directly around the services
+that SDK exposes (version/book/chapter/verse lookups, passage retrieval, OAuth + PKCE sign-in, and
+highlights).
+
+## Features
+
+- Browse available Bible versions, then drill into books, chapters, and verses
+- Read a passage as whole chapter, a single verse, or a verse range (pick a start verse and an end
+  verse; the app builds the `BOOK.CHAPTER.START-END` USFM reference for you)
+- Fluent 2-styled UI with automatic light/dark theming based on the OS setting
+
+The backend also exposes OAuth 2.0 + PKCE sign-in and a highlights API (`AuthController`,
+`HighlightsController`) via the SDK's `IBibleOAuthClient` and `IHighlightService` — these endpoints
+are implemented and working, but the Angular client does not yet have UI for sign-in or highlights.
+
+## Project structure
+
+```
+AngularBibleReader.slnx           Solution file (open this in Visual Studio)
+AngularBibleReader.Server/        ASP.NET Core Web API (.NET 10)
+  Controllers/                    Versions, Books, Chapters, Verses, Passage, Usfm, Auth, Highlights
+  Extensions/                     DI registration for the Bible SDK services
+  Auth/SessionTokenProvider.cs    Per-session OAuth token storage (multi-user web backend)
+angularbiblereader.client/        Angular 22 client (standalone-off, NgModule-based)
+  src/app/components/             version-selector, book-selector, chapter-selector, verse-selector,
+                                   bible-text, bible-reader
+  src/app/core/                   BibleApiService (HTTP), BibleSelectionService (shared UI state)
+```
+
+## Prerequisites
+
+- [.NET 10 SDK](https://dotnet.microsoft.com/download)
+- [Node.js](https://nodejs.org/) (with npm)
+- A YouVersion Bible Platform **App Key**. Request one from the
+  [YouVersion Developer Portal](https://developers.youversion.com/).
+
+## Configuration: YouVersion API key
+
+The backend needs a YouVersion Platform App Key before it will start. **The API key and the OAuth
+client ID are the same value** — YouVersion issues a single App Key that serves both purposes, so
+you set the same key under two different configuration paths.
+
+Do **not** put the key in `appsettings.json` (it's committed to source control). Use
+[.NET User Secrets](https://learn.microsoft.com/aspnet/core/security/app-secrets) instead, from the
+`AngularBibleReader.Server` directory:
+
+```bash
+cd AngularBibleReader.Server
+dotnet user-secrets init
+dotnet user-secrets set "BibleApi:AppKey" "<your-youversion-app-key>"
+dotnet user-secrets set "BibleOAuth:ClientId" "<your-youversion-app-key>"
+```
+
+| Secret key | Purpose |
+|---|---|
+| `BibleApi:AppKey` | Authenticates direct calls to the Bible Platform REST API (versions, books, chapters, verses, passages) |
+| `BibleOAuth:ClientId` | Identifies this app during the OAuth 2.0 + PKCE sign-in flow |
+
+Both keys must be set to your YouVersion App Key value. `dotnet user-secrets` writes to a JSON file
+outside the repo (`%APPDATA%\Microsoft\UserSecrets\<id>\secrets.json` on Windows,
+`~/.microsoft/usersecrets/<id>/secrets.json` on macOS/Linux) and is only loaded when
+`ASPNETCORE_ENVIRONMENT=Development`, which is the default when running from Visual Studio or
+`dotnet run` without overriding it.
+
+Other `BibleOAuth` settings (`RedirectUri`, `Scopes`) already have working defaults in
+`appsettings.json` for local development and don't need to be secrets.
+
+## Running the app
+
+### Visual Studio
+
+1. Open `AngularBibleReader.slnx`.
+2. Make sure `AngularBibleReader.Server` is the startup project.
+3. Press F5.
+
+The server project references `Microsoft.AspNetCore.SpaProxy`, which automatically runs
+`npm start` for the Angular client and proxies requests to it — you don't need to start the
+Angular dev server yourself.
+
+### Command line
+
+Run the API and the Angular dev server in two terminals:
+
+```bash
+# Terminal 1: backend
+cd AngularBibleReader.Server
+dotnet run
+
+# Terminal 2: frontend
+cd angularbiblereader.client
+npm install
+npm start
+```
+
+`npm start` runs `ng serve` with HTTPS and proxies `/api` and `/weatherforecast` requests to the
+backend (see `angularbiblereader.client/src/proxy.conf.js`).
+
+## Testing
+
+```bash
+# Backend
+dotnet build AngularBibleReader.slnx
+
+# Frontend
+cd angularbiblereader.client
+npm test
+```
+
+## Tech stack
+
+| Layer | Technology |
+|---|---|
+| Client | Angular 22, TypeScript, RxJS, Vitest |
+| Server | ASP.NET Core (.NET 10) |
+| Bible data | [BiblePlatformDotNetSDK](https://github.com/kevinRForshey/BiblePlatformDotNetSDK) NuGet packages, wrapping the YouVersion Bible Platform API |
