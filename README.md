@@ -41,7 +41,7 @@ AngularBibleReader.Server/        ASP.NET Core Web API (.NET 10)
   Controllers/                    Versions, Books, Chapters, Verses, Passage, Usfm, Auth, Highlights
   Extensions/                     DI registration for the Bible SDK services
   Auth/SessionTokenProvider.cs    Per-session OAuth token storage (multi-user web backend)
-angularbiblereader.client/        Angular 22 client, standalone components (no NgModules)
+angularbiblereader.client/        Angular 22 client (standalone-off, NgModule-based)
   src/app/components/             version-selector, book-selector, chapter-selector, verse-selector,
                                    bible-text, bible-reader
   src/app/core/                   BibleApiService (HTTP), BibleSelectionService (shared UI state)
