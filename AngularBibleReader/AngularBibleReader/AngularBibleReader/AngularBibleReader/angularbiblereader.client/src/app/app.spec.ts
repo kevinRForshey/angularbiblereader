@@ -1,5 +1,6 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { App } from './app';
 
 describe('App', () => {
@@ -10,7 +11,8 @@ describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [App],
-      imports: [HttpClientTestingModule]
+      imports: [HttpClientTestingModule],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   });
 
@@ -42,4 +44,4 @@ describe('App', () => {
 
     expect(component.forecasts).toEqual(mockForecasts);
   });
-};
+});

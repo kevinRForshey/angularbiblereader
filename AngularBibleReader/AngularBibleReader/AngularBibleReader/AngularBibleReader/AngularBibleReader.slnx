@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="angularbiblereader.client/angularbiblereader.client.esproj" />
+  <Project Path="AngularBibleReader.Server/AngularBibleReader.Server.csproj" />
+</Solution>

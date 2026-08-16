@@ -4,7 +4,7 @@ export interface BibleVersionSummary {
   localized_abbreviation: string;
   title: string;
   localized_title: string;
-  language_tage: string;
+  language_tag: string;
   copyright: string;
 }
 

@@ -17,7 +17,7 @@ export class BibleText {
   readonly passage = signal<Passage | null>(null);
   readonly loading = signal(false);
   readonly error = signal<string | null>(null);
-  readonly ufm = this.selection.displayUsfm;
+  readonly usfm = this.selection.displayUsfm;
 
   constructor() {
     effect(() => {
@@ -30,8 +30,10 @@ export class BibleText {
       this.api.getPassage(version.id, usfm, 'Text').subscribe({
         next: (passage) => { this.passage.set(passage); this.loading.set(false); },
         error: (err) => {
-          this.error.set(`Couldnotloadtextfor ${usfm}.`); this.loading.set(false)
-        });
-    })
+          this.error.set(`Could not load text for ${usfm}.`);
+          this.loading.set(false);
+        },
+      });
+    });
   }
 }

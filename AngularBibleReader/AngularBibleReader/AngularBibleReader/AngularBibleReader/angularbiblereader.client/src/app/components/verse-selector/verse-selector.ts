@@ -38,6 +38,14 @@ export class VerseSelector {
       this.api.getVerses(version.id, book.usfm, chapterNumber).subscribe({
         next: (verses) => { this.verses.set(verses); this.loading.set(false); },
         error: (err) => { this.error.set('Could not load verses for this chapter'); this.loading.set(false); }
+      });
+    });
+  }
+
+  onChange(verseUsfm: string): void {
+    const verse = this.verses().find(v => v.usfm === verseUsfm);
+    if (verse) {
+      this.selection.selectVerse(verse);
     }
   }
 }

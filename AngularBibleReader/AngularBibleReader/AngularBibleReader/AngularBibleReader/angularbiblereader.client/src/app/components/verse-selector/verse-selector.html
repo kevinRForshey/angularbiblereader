@@ -1,10 +1,10 @@
 <div class="selector">
   <label for="verse-select">Verse</label>
-  <select id="verse-select" [disabled]="!chapter()||loading()" (change)="onChange($any($event.target).value)"
+  <select id="verse-select" [disabled]="!chapter()||loading()" (change)="onChange($any($event.target).value)">
 <option value="" selected>
-{{ !chapter()?'Chooseachapterfirst':loading()?'Loading…':'Wholechapter'}}
+{{ !chapter()?'Choose a chapter first':loading()?'Loading…':'Whole chapter'}}
 </option>
-<option *ngFor="let verseof verses()" [value]="verse.usfm">{{verse.human}}</option>
+<option *ngFor="let verse of verses()" [value]="verse.usfm">{{verse.human}}</option>
 </select>
   <p class="error" *ngIf="error()">{{error()}}</p>
 </div>

@@ -43,7 +43,7 @@ export class ChapterSelector {
     });
   }
 
-  OnChange(chapterUsfm: string): void {
+  onChange(chapterUsfm: string): void {
     const chapter = this.chapters().find(c => c.usfm === chapterUsfm);
     if (chapter) this.selection.selectChapter(chapter);
   }

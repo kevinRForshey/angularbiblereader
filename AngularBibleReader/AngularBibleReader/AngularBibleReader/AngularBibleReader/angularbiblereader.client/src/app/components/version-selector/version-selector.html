@@ -1,9 +1,9 @@
 <div class="selector">
   <label for="version-select">Select Bible Version:</label>
-  <select id="version-select" [disabled]="loading()" (change)="OnChange($event.target.value)">
+  <select id="version-select" [disabled]="loading()" (change)="OnChange($any($event.target).value)">
     <option value="">Choose a version</option>
     <option *ngFor="let version of versions()" [value]="version.id">
-      {{ version.name }}
+      {{ version.localized_title }}
     </option>
   </select>
 </div>
