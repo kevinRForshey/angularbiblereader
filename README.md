@@ -23,6 +23,16 @@ The backend also exposes OAuth 2.0 + PKCE sign-in and a highlights API (`AuthCon
 `HighlightsController`) via the SDK's `IBibleOAuthClient` and `IHighlightService` — these endpoints
 are implemented and working, but the Angular client does not yet have UI for sign-in or highlights.
 
+## Screenshots
+
+| | |
+|---|---|
+| ![Empty state](docs/screenshots/empty-state.png) Starting state — nothing selected yet | ![Selecting a book](docs/screenshots/book-selection.png) Choosing a book, with the chapter and verse selectors enabling as each prior choice is made |
+| ![Whole chapter](docs/screenshots/whole-chapter.png) Reading a whole chapter (Revelation 14, Amplified Bible) | ![Single verse](docs/screenshots/single-verse.png) Narrowing down to a single verse (Revelation 14:11) |
+
+![Verse range](docs/screenshots/verse-range.png)
+Picking a start and end verse reads as a range (James 1:2-5)
+
 ## Scope
 
 This is a straightforward CRUD-style drill-down (version → book → chapter → verse → passage): no
