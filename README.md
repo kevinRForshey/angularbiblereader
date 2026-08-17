@@ -39,8 +39,7 @@ This is a straightforward CRUD-style drill-down (version → book → chapter �
 forms, no client-side routing beyond an empty stub (`app.routes.ts`, ready for the sign-in/highlights
 work above), no state management library (a couple of injectable services with Angular signals cover
 the shared UI state), and no component-level test suite yet (one smoke test on the root component).
-It's a reasonable demonstration of getting productive in Angular quickly — not a claim of deep
-Angular expertise.
+This is a simple weekend project I spent a day on to freshen up my Angular familiarity.
 
 ## Project structure
 
