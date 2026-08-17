@@ -19,6 +19,11 @@
     <PackageReference Include="BiblePlatform.API.Models" Version="0.1.2-alpha.0.16" />
     <PackageReference Include="BiblePlatform.SDK.Services" Version="0.1.2-alpha.0.16" />
     <PackageReference Include="BiblePlatform.UsfmReferences" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.11">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.11" />
   </ItemGroup>
 
   <ItemGroup>

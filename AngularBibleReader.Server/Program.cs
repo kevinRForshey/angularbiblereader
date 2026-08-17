@@ -1,5 +1,9 @@
+using AngularBibleReader.Server.Data;
 using AngularBibleReader.Server.Extensions;
 using AngularBibleReader.Server.Infrastructure;
+using AngularBibleReader.Server.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Platform.API.Extensions;
 using Platform.API.OAuth;
 
@@ -10,6 +14,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddSingleton<PasswordHasher<User>>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDistributedMemoryCache();
@@ -30,6 +39,11 @@ builder.Services.AddExceptionHandler<BibleApiExceptionHandler>();
 builder.Services.AddProblemDetails();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    scope.ServiceProvider.GetRequiredService<AppDbContext>().Database.Migrate();
+}
 
 app.UseExceptionHandler();
 

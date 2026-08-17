@@ -4,4 +4,5 @@
     <Deploy />
   </Project>
   <Project Path="AngularBibleReader.Server/AngularBibleReader.Server.csproj" />
+  <Project Path="AngularBibleReader.Server.Tests/AngularBibleReader.Server.Tests.csproj" />
 </Solution>

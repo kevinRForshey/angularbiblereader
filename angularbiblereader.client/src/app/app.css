@@ -6,10 +6,43 @@
 .app-bar {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   height: 48px;
   padding: 0 var(--space-6);
   background: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
+}
+
+.app-bar__account {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  font-size: 13px;
+}
+
+.app-bar__account a {
+  color: var(--color-brand-rest);
+  font-weight: 600;
+}
+
+.app-bar__account-name {
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+.app-bar__account-action {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--color-brand-rest);
+  font-family: var(--font-base);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.app-bar__account-action:hover {
+  color: var(--color-brand-hover);
 }
 
 .app-bar__brand {

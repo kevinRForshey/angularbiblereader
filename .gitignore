@@ -70,6 +70,11 @@ nunit-*.xml
 appsettings.*.local.json
 secrets.json
 
+# Local SQLite database (registration/login practice data)
+AngularBibleReader.Server/App_Data/*.db
+AngularBibleReader.Server/App_Data/*.db-shm
+AngularBibleReader.Server/App_Data/*.db-wal
+
 ## Node / Angular (client also has its own .gitignore; this covers the repo root)
 node_modules/
 npm-debug.log*

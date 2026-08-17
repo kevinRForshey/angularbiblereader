@@ -5,8 +5,18 @@
     </svg>
     <span class="app-bar__title">Bible Reader</span>
   </div>
+
+  <nav class="app-bar__account">
+    @if (auth.currentUser(); as user) {
+      <span class="app-bar__account-name">{{ user.displayName }}</span>
+      <button type="button" class="app-bar__account-action" (click)="onLogout()">Log out</button>
+    } @else {
+      <a routerLink="/login">Log in</a>
+      <a routerLink="/register">Sign up</a>
+    }
+  </nav>
 </header>
 
 <main class="app-shell">
-  <app-bible-reader></app-bible-reader>
+  <router-outlet></router-outlet>
 </main>
