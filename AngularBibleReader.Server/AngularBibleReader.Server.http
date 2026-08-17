@@ -1,6 +1,17 @@
 @AngularBibleReader.Server_HostAddress = http://localhost:5084
 
-GET {{AngularBibleReader.Server_HostAddress}}/weatherforecast/
+GET {{AngularBibleReader.Server_HostAddress}}/api/account/me
 Accept: application/json
+
+###
+
+POST {{AngularBibleReader.Server_HostAddress}}/api/account/register
+Content-Type: application/json
+
+{
+  "email": "person@example.com",
+  "displayName": "Person",
+  "password": "password123"
+}
 
 ###

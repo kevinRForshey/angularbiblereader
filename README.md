@@ -18,10 +18,15 @@ highlights).
 - Read a passage as whole chapter, a single verse, or a verse range (pick a start verse and an end
   verse; the app builds the `BOOK.CHAPTER.START-END` USFM reference for you)
 - Fluent 2-styled UI with automatic light/dark theming based on the OS setting
+- Local account registration and sign-in (`/register`, `/login`) built to practice Angular
+  **Reactive Forms** — a `SQLite` database via EF Core on the backend, with client-side and
+  server-side validation, session-based sign-in, and a signed-in state shown in the app bar
 
 The backend also exposes OAuth 2.0 + PKCE sign-in and a highlights API (`AuthController`,
 `HighlightsController`) via the SDK's `IBibleOAuthClient` and `IHighlightService` — these endpoints
 are implemented and working, but the Angular client does not yet have UI for sign-in or highlights.
+This is separate from the local registration/login feature above, which uses its own session
+namespace and doesn't touch the Bible Platform OAuth flow.
 
 ## Screenshots
 
@@ -35,11 +40,16 @@ Picking a start and end verse reads as a range (James 1:2-5)
 
 ## Scope
 
-This is a straightforward CRUD-style drill-down (version → book → chapter → verse → passage): no
-forms, no client-side routing beyond an empty stub (`app.routes.ts`, ready for the sign-in/highlights
-work above), no state management library (a couple of injectable services with Angular signals cover
-the shared UI state), and no component-level test suite yet (one smoke test on the root component).
-This is a simple weekend project I spent a day on to freshen up my Angular familiarity.
+At its core this is a straightforward CRUD-style drill-down (version → book → chapter → verse →
+passage), with no state management library — a couple of injectable services with Angular signals
+cover the shared UI state. The local registration/login feature was added on top as a small,
+self-contained excuse to practice Angular Reactive Forms and client-side routing (`app.routes.ts`
+now has real routes) against a real backend and database, rather than as a fully fledged auth
+system — the Bible reader itself stays open to everyone; signing in doesn't gate anything.
+
+This is a simple weekend project I spent a couple of days on to freshen up my Angular familiarity.
+It has a full component/service test suite on the client (Vitest, enforced at a 90% coverage floor)
+and an NUnit suite on the server covering the account/data layer — see [Testing](#testing).
 
 ## Project structure
 
@@ -47,13 +57,17 @@ This is a simple weekend project I spent a day on to freshen up my Angular famil
 AngularBibleReader.slnx           Solution file (open this in Visual Studio)
 nuget.config / packages/          Local NuGet feed for the Bible SDK packages (see below)
 AngularBibleReader.Server/        ASP.NET Core Web API (.NET 10)
-  Controllers/                    Versions, Books, Chapters, Verses, Passage, Usfm, Auth, Highlights
+  Controllers/                    Versions, Books, Chapters, Verses, Passage, Usfm, Auth,
+                                   Highlights, Account (local register/login)
+  Data/                           AppDbContext (SQLite), UserRepository, EF Core migrations
   Extensions/                     DI registration for the Bible SDK services
   Auth/SessionTokenProvider.cs    Per-session OAuth token storage (multi-user web backend)
-angularbiblereader.client/        Angular 22 client (standalone-off, NgModule-based)
+  App_Data/                       SQLite database file lives here (gitignored, auto-created)
+AngularBibleReader.Server.Tests/  NUnit tests for the account/data layer
+angularbiblereader.client/        Angular 22 client (standalone components, signals)
   src/app/components/             version-selector, book-selector, chapter-selector, verse-selector,
-                                   bible-text, bible-reader
-  src/app/core/                   BibleApiService (HTTP), BibleSelectionService (shared UI state)
+                                   bible-text, bible-reader, register-form, login-form
+  src/app/core/                   BibleApiService, BibleSelectionService, AuthService
 ```
 
 ### Why there's a `packages/` folder with `.nupkg` files checked in
@@ -129,24 +143,32 @@ npm install
 npm start
 ```
 
-`npm start` runs `ng serve` with HTTPS and proxies `/api` and `/weatherforecast` requests to the
-backend (see `angularbiblereader.client/src/proxy.conf.js`).
+`npm start` runs `ng serve` with HTTPS and proxies `/api` requests to the backend (see
+`angularbiblereader.client/src/proxy.conf.js`).
 
 ## Testing
 
 ```bash
-# Backend
+# Backend — build + NUnit tests (AngularBibleReader.Server.Tests)
 dotnet build AngularBibleReader.slnx
+dotnet test AngularBibleReader.Server.Tests/AngularBibleReader.Server.Tests.csproj
 
-# Frontend
+# Frontend — Vitest, watch mode by default
 cd angularbiblereader.client
 npm test
+
+# Frontend — single run with a coverage report
+npm run test:coverage
 ```
+
+`npm run test:coverage` enforces a 90% minimum on statements, branches, functions, and lines
+(configured as `coverageThresholds` on the `test` target in `angular.json`) — the command exits
+non-zero if coverage drops below that on any metric.
 
 ## Tech stack
 
 | Layer | Technology |
 |---|---|
-| Client | Angular 22, TypeScript, RxJS, Vitest |
-| Server | ASP.NET Core (.NET 10) |
+| Client | Angular 22, TypeScript, RxJS, Reactive Forms, Vitest |
+| Server | ASP.NET Core (.NET 10), EF Core + SQLite (local accounts), NUnit |
 | Bible data | [BiblePlatformDotNetSDK](https://github.com/kevinRForshey/BiblePlatformDotNetSDK) NuGet packages, wrapping the YouVersion Bible Platform API |
